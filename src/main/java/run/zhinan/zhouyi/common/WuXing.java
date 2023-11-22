@@ -33,6 +33,10 @@ public class WuXing implements Comparable<WuXing> {
         return WuXingEffect.of(this, other);
     }
 
+    public WuXing getByEffect(WuXingEffect effect) {
+        return effect.of(this);
+    }
+
     @Override
     public int compareTo(WuXing wx) {
         return this.value - wx.value;

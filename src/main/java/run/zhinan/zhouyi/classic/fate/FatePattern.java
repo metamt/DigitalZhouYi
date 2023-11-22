@@ -1,33 +1,66 @@
 package run.zhinan.zhouyi.classic.fate;
 
+import lombok.Getter;
+import run.zhinan.zhouyi.classic.fate.energy.EnergyType;
+import run.zhinan.zhouyi.classic.fate.energy.WuXingEnergy;
 import run.zhinan.zhouyi.common.WuXing;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class FatePattern {
-    int value;
-    String name;
+import static run.zhinan.zhouyi.classic.fate.PatternType.*;
+import static run.zhinan.zhouyi.common.WuXingEffect.*;
 
+@Getter
+public class FatePattern {
     int selfPart;
     int otherPart;
 
     boolean strong;
     boolean follow;
 
-    List<WuXing> goodGodList;
-    List<WuXing>  badGodList;
+    EnergyType  energyType;
 
+    FatePatternType fatePatternType;
+
+    List<WuXing> goodGodList = new ArrayList<>();
+    List<WuXing>  badGodList = new ArrayList<>();
+
+    /**
+     * 身强条件：
+     * 同党大于异党 或
+     * 同党与异党相同时，看月令，
+     * 月令是同党则是身强，
+     * 月令如果是异党则是身弱。
+     *
+     * 从格条件：
+     * 同党<=80为从弱
+     * 异党<=40委从强
+     */
     public static FatePattern of(FateCode bazi) {
-//        FatePattern pattern = new FatePattern();
-//        pattern.value       = model.getValue();
-//        pattern.name        = model.getName();
-//        pattern.selfPart    = model.getSelfPart ();
-//        pattern.otherPart   = model.getOtherPart();
-//        pattern.follow      = model.isFollow();
-//        pattern.strong      = model.isStrong();
-//        pattern.goodGodList = model.getGoodGodList();
-//        pattern. badGodList = model.getBadGodList();
-        return new FatePattern();
+        FatePattern pattern = new FatePattern();
+        WuXingEnergy energy = WuXingEnergy.of(bazi);
+        WuXing fateWuXing = bazi.getFate().getWuXing();
+        pattern.selfPart  = energy.getValue(fateWuXing.getByEffect(GIVE)) +
+                            energy.getValue(fateWuXing.getByEffect(HELP)) ;
+        pattern.otherPart = energy.getValue(fateWuXing.getByEffect(LEAK)) +
+                            energy.getValue(fateWuXing.getByEffect(COST)) +
+                            energy.getValue(fateWuXing.getByEffect(CURB)) ;
+
+
+        pattern.strong     = pattern.selfPart > pattern.otherPart ||
+                (pattern.selfPart == pattern.otherPart && fateWuXing.effect(bazi.getMaster().getWuXing()).getValue() < LEAK.getValue());
+
+        pattern.follow     = pattern.selfPart <= 80 || pattern.otherPart <= 40;
+
+        pattern.energyType = EnergyType.of(pattern.strong, pattern.follow);
+        pattern.fatePatternType = FatePatternType.of(fateWuXing.effect(energy.getMax()), pattern.follow ? FOLLOW : ADJUST);
+
+        Arrays.asList(pattern.fatePatternType.goodEffects).forEach(effect -> pattern.goodGodList.add(fateWuXing.getByEffect(effect)));
+        Arrays.asList(pattern.fatePatternType. badEffects).forEach(effect -> pattern. badGodList.add(fateWuXing.getByEffect(effect)));
+
+        return pattern;
     }
 
     public boolean isGood(WuXing wuXing) {
@@ -60,37 +93,5 @@ public class FatePattern {
 
     public WuXing getThirdBadGod() {
         return getBadGodList().size() > 2 ? getBadGodList().get(2) : null;
-    }
-
-    public int getValue() {
-        return value;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public int getSelfPart() {
-        return selfPart;
-    }
-
-    public int getOtherPart() {
-        return otherPart;
-    }
-
-    public boolean isStrong() {
-        return strong;
-    }
-
-    public boolean isFollow() {
-        return follow;
-    }
-
-    public List<WuXing> getGoodGodList() {
-        return goodGodList;
-    }
-
-    public List<WuXing> getBadGodList() {
-        return badGodList;
     }
 }

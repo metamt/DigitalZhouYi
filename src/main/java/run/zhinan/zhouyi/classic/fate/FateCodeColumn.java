@@ -1,28 +1,44 @@
 package run.zhinan.zhouyi.classic.fate;
 
-import run.zhinan.zhouyi.classic.common.Gan;
+import lombok.Getter;
 import run.zhinan.zhouyi.classic.common.GanZhi;
-import run.zhinan.zhouyi.classic.common.Zhi;
 
+@Getter
 public class FateCodeColumn extends GanZhi {
     ColumnType type;
-    Gan        fate;
+    FateCode   fateCode;
+    FatePattern pattern;
 
-    public FateCodeColumn(Gan gan, Zhi zhi, ColumnType type, Gan fate) {
-        super(gan, zhi);
+    public FateCodeColumn(GanZhi ganZhi, ColumnType type, FateCode bazi) {
+        super(ganZhi.getGan(), ganZhi.getZhi());
         this.type = type;
-        this.fate = fate;
+        this.fateCode = bazi;
     }
 
-    public static FateCodeColumn of(GanZhi ganZhi, ColumnType type, Gan fate) {
-        return new FateCodeColumn(ganZhi.getGan(), ganZhi.getZhi(), type, fate);
+    public static FateCodeColumn of(GanZhi ganZhi, ColumnType type, FateCode bazi) {
+        return new FateCodeColumn(ganZhi, type, bazi);
     }
 
     public FateGod getGanGod() {
-        return fate.effect(getGan());
+        return getFateCode().getFate().effect(getGan());
     }
 
     public FateGod getZhiGod() {
-        return fate.effect(getZhi().getGan());
+        return getFateCode().getFate().effect(getZhi().getGan());
+    }
+
+    public boolean isGanGodGood() {
+        return getPattern().isGood(getGan().getWuXing());
+    }
+
+    public boolean isZhiGodGood() {
+        return getPattern().isGood(getZhi().getWuXing());
+    }
+
+    protected FateCode getFateCode() { return fateCode; }
+
+    protected FatePattern getPattern() {
+        if (pattern == null) pattern = FatePattern.of(getFateCode());
+        return pattern;
     }
 }

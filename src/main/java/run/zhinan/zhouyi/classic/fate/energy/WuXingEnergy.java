@@ -8,12 +8,11 @@ import run.zhinan.zhouyi.classic.fate.FateCode;
 import run.zhinan.zhouyi.classic.fate.energy.definition.EnergyScoreXingHeDefinition;
 import run.zhinan.zhouyi.common.WuXing;
 
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 @Getter
 public class WuXingEnergy {
-    private final static EnergyScoreDefinition definition = new EnergyScoreXingHeDefinition();
+    private final static EnergyScoreDefinition definition = EnergyScoreDefinition.getInstance();
 
     double total;
 
@@ -73,5 +72,12 @@ public class WuXingEnergy {
 
     public double getPercentage(WuXing wuXing) {
         return percentages.computeIfAbsent(wuXing.getValue(), w -> 0.0);
+    }
+
+    public WuXing getMax() {
+        Map<Integer, Integer> compareMap = new TreeMap<>();
+        values.keySet().forEach(key -> compareMap.put(values.get(key), key));
+        Set<Integer> keySet = compareMap.keySet();
+        return WuXing.getByValue(compareMap.get(keySet.toArray(new Integer[0])[keySet.size() - 1]));
     }
 }

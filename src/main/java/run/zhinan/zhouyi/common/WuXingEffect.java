@@ -26,8 +26,12 @@ public enum WuXingEffect {
             case 3:
                 return CURB;
             case 4:
-            default:
                 return GIVE;
         }
+        return null;
+    }
+
+    public WuXing of(WuXing wuXing) {
+        return WuXing.getByValue((this.value - 1 + wuXing.getValue() + 5) % 5);
     }
 }

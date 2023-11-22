@@ -5,7 +5,7 @@ import run.zhinan.zhouyi.classic.fate.ColumnType;
 import run.zhinan.zhouyi.classic.fate.energy.EnergyScoreDefinition;
 
 public class EnergyScoreXingHeDefinition implements EnergyScoreDefinition {
-    int[] scores = {
+    private final static int[] scores = {
             40,  70, 20, 10,    // 年柱
             40, 105, 30, 15,    // 月柱
             40,  70, 20, 10,    // 日柱

@@ -17,6 +17,10 @@ public enum Sex {
         return name;
     }
 
+    public YinYang getYinYang() {
+        return YinYang.getByValue(value);
+    }
+
     public static Sex getByValue(int value) {
         return values()[value];
     }

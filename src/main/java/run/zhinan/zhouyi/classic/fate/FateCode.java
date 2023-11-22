@@ -6,6 +6,7 @@ import run.zhinan.zhouyi.classic.common.Gan;
 import run.zhinan.zhouyi.classic.common.GanZhi;
 import run.zhinan.zhouyi.classic.common.Zhi;
 import run.zhinan.zhouyi.classic.fate.energy.WuXingEnergy;
+import run.zhinan.zhouyi.common.Sex;
 
 import java.time.LocalDateTime;
 
@@ -17,18 +18,22 @@ import java.time.LocalDateTime;
  */
 @Getter
 public class FateCode {
+    LocalDateTime birthday;
+    Sex sex;
+
     FateCodeColumn[] fourColumns = new FateCodeColumn[4];
 
     WuXingEnergy energy;
 
-    public static FateCode of(LocalDateTime apparentSolarTime) {
-        GanZhiDateTime ganZhiDateTime = GanZhiDateTime.of(apparentSolarTime);
-        Gan fate = GanZhi.of(ganZhiDateTime.getGanZhiDay()).getGan();
+    public static FateCode of(LocalDateTime birthday, int sex) {
+        GanZhiDateTime ganZhiDateTime = GanZhiDateTime.of(birthday);
         FateCode fateCode = new FateCode();
-        fateCode.fourColumns[0] = FateCodeColumn.of(GanZhi.of(ganZhiDateTime.getGanZhiYear ()), ColumnType.YEAR , fate);
-        fateCode.fourColumns[1] = FateCodeColumn.of(GanZhi.of(ganZhiDateTime.getGanZhiMonth()), ColumnType.MONTH, fate);
-        fateCode.fourColumns[2] = FateCodeColumn.of(GanZhi.of(ganZhiDateTime.getGanZhiDay  ()), ColumnType.DAY  , fate);
-        fateCode.fourColumns[3] = FateCodeColumn.of(GanZhi.of(ganZhiDateTime.getGanZhiTime ()), ColumnType.TIME , fate);
+        fateCode.birthday = birthday;
+        fateCode.sex      = Sex.getByValue(sex);
+        fateCode.fourColumns[0] = FateCodeColumn.of(GanZhi.of(ganZhiDateTime.getGanZhiYear ()), ColumnType.YEAR , fateCode);
+        fateCode.fourColumns[1] = FateCodeColumn.of(GanZhi.of(ganZhiDateTime.getGanZhiMonth()), ColumnType.MONTH, fateCode);
+        fateCode.fourColumns[2] = FateCodeColumn.of(GanZhi.of(ganZhiDateTime.getGanZhiDay  ()), ColumnType.DAY  , fateCode);
+        fateCode.fourColumns[3] = FateCodeColumn.of(GanZhi.of(ganZhiDateTime.getGanZhiTime ()), ColumnType.TIME , fateCode);
         fateCode.energy = WuXingEnergy.of(fateCode);
         return fateCode;
     }

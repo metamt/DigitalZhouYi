@@ -44,7 +44,7 @@ public class Gan {
         return result;
     }
 
-    public static Gan getByYinYangWuXing(YinYang yinYang, WuXing wuXing) {
+    public static Gan of(YinYang yinYang, WuXing wuXing) {
         return values()[wuXing.getValue() * 2 + 1 - yinYang.getValue()];
     }
 
