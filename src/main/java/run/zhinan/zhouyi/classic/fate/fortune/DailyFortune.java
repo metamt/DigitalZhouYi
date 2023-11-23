@@ -13,8 +13,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DailyFortune extends Fortune {
-    public DailyFortune(GanZhi ganZhi, FateCode bazi, LocalDateTime startTime, LocalDateTime endTime) {
-        super(ganZhi, ColumnType.DAILY_FORTUNE, bazi, startTime, endTime);
+    public DailyFortune(GanZhi ganZhi, FateCode fateCode, LocalDateTime startTime, LocalDateTime endTime) {
+        super(ganZhi, ColumnType.DAILY_FORTUNE, fateCode, startTime, endTime);
     }
 
     public DailyFortune next() {

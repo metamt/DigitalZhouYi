@@ -12,9 +12,9 @@ import java.util.List;
 public class DecadeFortune extends Fortune {
     FortuneDirection direction;
 
-    public DecadeFortune(GanZhi ganZhi, FateCode bazi, LocalDateTime startTime, LocalDateTime endTime) {
-        super(ganZhi, ColumnType.DECADE_FORTUNE, bazi, startTime, endTime);
-        direction = FortuneDirection.of(bazi);
+    public DecadeFortune(GanZhi ganZhi, FateCode fateCode, LocalDateTime startTime, LocalDateTime endTime) {
+        super(ganZhi, ColumnType.DECADE_FORTUNE, fateCode, startTime, endTime);
+        direction = FortuneDirection.of(fateCode);
     }
 
     public DecadeFortune next() {

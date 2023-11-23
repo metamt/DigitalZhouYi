@@ -9,14 +9,14 @@ public class FateCodeColumn extends GanZhi {
     FateCode   fateCode;
     FatePattern pattern;
 
-    public FateCodeColumn(GanZhi ganZhi, ColumnType type, FateCode bazi) {
+    public FateCodeColumn(GanZhi ganZhi, ColumnType type, FateCode fateCode) {
         super(ganZhi.getGan(), ganZhi.getZhi());
         this.type = type;
-        this.fateCode = bazi;
+        this.fateCode = fateCode;
     }
 
-    public static FateCodeColumn of(GanZhi ganZhi, ColumnType type, FateCode bazi) {
-        return new FateCodeColumn(ganZhi, type, bazi);
+    public static FateCodeColumn of(GanZhi ganZhi, ColumnType type, FateCode fateCode) {
+        return new FateCodeColumn(ganZhi, type, fateCode);
     }
 
     public FateGod getGanGod() {

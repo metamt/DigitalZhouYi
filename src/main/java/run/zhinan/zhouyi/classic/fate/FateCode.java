@@ -5,6 +5,7 @@ import run.zhinan.time.ganzhi.GanZhiDateTime;
 import run.zhinan.zhouyi.classic.common.Gan;
 import run.zhinan.zhouyi.classic.common.GanZhi;
 import run.zhinan.zhouyi.classic.common.Zhi;
+import run.zhinan.zhouyi.classic.fate.energy.GodEnergy;
 import run.zhinan.zhouyi.classic.fate.energy.WuXingEnergy;
 import run.zhinan.zhouyi.common.Sex;
 
@@ -24,6 +25,7 @@ public class FateCode {
     FateCodeColumn[] fourColumns = new FateCodeColumn[4];
 
     WuXingEnergy energy;
+    GodEnergy godEnergy;
 
     public static FateCode of(LocalDateTime birthday, int sex) {
         GanZhiDateTime ganZhiDateTime = GanZhiDateTime.of(birthday);
@@ -34,7 +36,6 @@ public class FateCode {
         fateCode.fourColumns[1] = FateCodeColumn.of(GanZhi.of(ganZhiDateTime.getGanZhiMonth()), ColumnType.MONTH, fateCode);
         fateCode.fourColumns[2] = FateCodeColumn.of(GanZhi.of(ganZhiDateTime.getGanZhiDay  ()), ColumnType.DAY  , fateCode);
         fateCode.fourColumns[3] = FateCodeColumn.of(GanZhi.of(ganZhiDateTime.getGanZhiTime ()), ColumnType.TIME , fateCode);
-        fateCode.energy = WuXingEnergy.of(fateCode);
         return fateCode;
     }
 
@@ -74,5 +75,15 @@ public class FateCode {
      */
     public Zhi getMaster() {
         return getColumn(ColumnType.MONTH).getZhi();
+    }
+
+    public WuXingEnergy getEnergy() {
+        if (energy == null) energy = WuXingEnergy.of(this);
+        return energy;
+    }
+
+    public GodEnergy getGodEnergy() {
+        if (godEnergy == null) godEnergy = GodEnergy.of(this);
+        return godEnergy;
     }
 }

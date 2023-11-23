@@ -1,16 +1,15 @@
 package run.zhinan.zhouyi.classic.fate.energy;
 
-import lombok.Getter;
 import run.zhinan.zhouyi.classic.common.GanZhi;
 import run.zhinan.zhouyi.classic.common.PositionType;
 import run.zhinan.zhouyi.classic.fate.ColumnType;
 import run.zhinan.zhouyi.classic.fate.FateCode;
-import run.zhinan.zhouyi.classic.fate.energy.definition.EnergyScoreXingHeDefinition;
 import run.zhinan.zhouyi.common.WuXing;
 
-import java.util.*;
+import java.util.Map;
+import java.util.Set;
+import java.util.TreeMap;
 
-@Getter
 public class WuXingEnergy {
     private final static EnergyScoreDefinition definition = EnergyScoreDefinition.getInstance();
 
@@ -20,10 +19,10 @@ public class WuXingEnergy {
     Map<Integer, Integer> number      = new TreeMap<>();
     Map<Integer, Double>  percentages = new TreeMap<>();
 
-    public static WuXingEnergy of(FateCode bazi) {
+    public static WuXingEnergy of(FateCode fateCode) {
         WuXingEnergy energy = new WuXingEnergy();
         for (ColumnType column : ColumnType.originals) {
-            GanZhi ganZhi = bazi.getColumn(column);
+            GanZhi ganZhi = fateCode.getColumn(column);
 
             energy.number.put(ganZhi.getGan().getWuXing().getValue(), energy.getNumber(ganZhi.getGan().getWuXing()) + 1);
             energy.number.put(ganZhi.getZhi().getWuXing().getValue(), energy.getNumber(ganZhi.getZhi().getWuXing()) + 1);

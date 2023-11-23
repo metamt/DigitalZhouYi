@@ -38,10 +38,10 @@ public class FatePattern {
      * 同党<=80为从弱
      * 异党<=40委从强
      */
-    public static FatePattern of(FateCode bazi) {
+    public static FatePattern of(FateCode fateCode) {
         FatePattern pattern = new FatePattern();
-        WuXingEnergy energy = WuXingEnergy.of(bazi);
-        WuXing fateWuXing = bazi.getFate().getWuXing();
+        WuXingEnergy energy = WuXingEnergy.of(fateCode);
+        WuXing fateWuXing = fateCode.getFate().getWuXing();
         pattern.selfPart  = energy.getValue(fateWuXing.getByEffect(GIVE)) +
                             energy.getValue(fateWuXing.getByEffect(HELP)) ;
         pattern.otherPart = energy.getValue(fateWuXing.getByEffect(LEAK)) +
@@ -50,7 +50,7 @@ public class FatePattern {
 
 
         pattern.strong     = pattern.selfPart > pattern.otherPart ||
-                (pattern.selfPart == pattern.otherPart && fateWuXing.effect(bazi.getMaster().getWuXing()).getValue() < LEAK.getValue());
+                (pattern.selfPart == pattern.otherPart && fateWuXing.effect(fateCode.getMaster().getWuXing()).getValue() < LEAK.getValue());
 
         pattern.follow     = pattern.selfPart <= 80 || pattern.otherPart <= 40;
 

@@ -11,8 +11,8 @@ public abstract class Fortune extends FateCodeColumn {
     LocalDateTime startTime;
     LocalDateTime endTime;
 
-    public Fortune(GanZhi ganZhi, ColumnType type, FateCode bazi, LocalDateTime startTime, LocalDateTime endTime) {
-        super(ganZhi, type, bazi);
+    public Fortune(GanZhi ganZhi, ColumnType type, FateCode fateCode, LocalDateTime startTime, LocalDateTime endTime) {
+        super(ganZhi, type, fateCode);
         this.startTime = startTime;
         this.endTime   = endTime;
     }

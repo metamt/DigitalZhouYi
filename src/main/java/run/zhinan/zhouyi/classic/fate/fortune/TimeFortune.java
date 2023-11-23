@@ -10,8 +10,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TimeFortune extends Fortune {
-    public TimeFortune(GanZhi ganZhi, FateCode bazi, LocalDateTime startTime, LocalDateTime endTime) {
-        super(ganZhi, ColumnType.TIME_FORTUNE, bazi, startTime, endTime);
+    public TimeFortune(GanZhi ganZhi, FateCode fateCode, LocalDateTime startTime, LocalDateTime endTime) {
+        super(ganZhi, ColumnType.TIME_FORTUNE, fateCode, startTime, endTime);
     }
 
     public TimeFortune next() {

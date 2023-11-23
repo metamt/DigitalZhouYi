@@ -11,8 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class YearFortune extends Fortune {
-    public YearFortune(GanZhi ganZhi, FateCode bazi, LocalDateTime startTime, LocalDateTime endTime) {
-        super(ganZhi, ColumnType.YEAR_FORTUNE, bazi, startTime, endTime);
+    public YearFortune(GanZhi ganZhi, FateCode fateCode, LocalDateTime startTime, LocalDateTime endTime) {
+        super(ganZhi, ColumnType.YEAR_FORTUNE, fateCode, startTime, endTime);
     }
 
     public YearFortune next() {
