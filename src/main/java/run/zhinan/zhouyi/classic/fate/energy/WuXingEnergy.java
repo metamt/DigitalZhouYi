@@ -4,14 +4,17 @@ import run.zhinan.zhouyi.classic.common.GanZhi;
 import run.zhinan.zhouyi.classic.common.PositionType;
 import run.zhinan.zhouyi.classic.fate.ColumnType;
 import run.zhinan.zhouyi.classic.fate.FateCode;
+import run.zhinan.zhouyi.classic.fate.FateCodeColumn;
+import run.zhinan.zhouyi.classic.fate.fortune.PeriodFortune;
 import run.zhinan.zhouyi.common.WuXing;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.TreeMap;
+import java.time.LocalDate;
+import java.util.*;
 
 public class WuXingEnergy {
     private final static EnergyScoreDefinition definition = EnergyScoreDefinition.getInstance();
+
+    FateCode fateCode;
 
     double total;
 
@@ -20,21 +23,31 @@ public class WuXingEnergy {
     Map<Integer, Double>  percentages = new TreeMap<>();
 
     public static WuXingEnergy of(FateCode fateCode) {
-        WuXingEnergy energy = new WuXingEnergy();
-        for (ColumnType column : ColumnType.originals) {
-            GanZhi ganZhi = fateCode.getColumn(column);
+        return of(fateCode, null);
+    }
 
-            energy.number.put(ganZhi.getGan().getWuXing().getValue(), energy.getNumber(ganZhi.getGan().getWuXing()) + 1);
-            energy.number.put(ganZhi.getZhi().getWuXing().getValue(), energy.getNumber(ganZhi.getZhi().getWuXing()) + 1);
+    public static WuXingEnergy of(FateCode fateCode, LocalDate date) {
+        List<FateCodeColumn> columnList = new ArrayList<>(Arrays.asList(fateCode.getFourColumns()));
+        if (date != null) {
+            columnList.addAll(PeriodFortune.getFortunes(date.atTime(12, 0), fateCode, ColumnType.DAILY_FORTUNE));
+        }
+
+        WuXingEnergy energy = new WuXingEnergy();
+        energy.fateCode = fateCode;
+        for (FateCodeColumn column : columnList) {
+            energy.number.put(column.getGan().getWuXing().getValue(), energy.getNumber(column.getGan().getWuXing()) + 1);
+            energy.number.put(column.getZhi().getWuXing().getValue(), energy.getNumber(column.getZhi().getWuXing()) + 1);
 
             for (PositionType position : PositionType.values()) {
-                WuXing wuXing = getByPosition(ganZhi, position);
-                energy.values.put(wuXing.getValue(), energy.getValue(wuXing) + WuXingEnergy.definition.getScore(column, position));
+                WuXing wuXing = getByPosition(column, position);
+                energy.values.put(wuXing.getValue(), energy.getValue(wuXing) + WuXingEnergy.definition.getScore(column.getType(), position));
             }
         }
+
         energy.total = energy.getValue(WuXing.METAL)
                 + energy.getValue(WuXing.WOOD) + energy.getValue(WuXing.WATER)
                 + energy.getValue(WuXing.FIRE) + energy.getValue(WuXing.EARTH);
+
         for (WuXing wuXing : WuXing.values()) {
             energy.percentages.put(wuXing.getValue(), Math.floor(energy.getValue(wuXing) * 10000 / energy.total) / 100.0);
         }
@@ -59,6 +72,10 @@ public class WuXingEnergy {
                         ganZhi.getZhi().getThirdHiddenGan ().getWuXing();
         }
         return result;
+    }
+
+    public static FateCode getFateCode(WuXingEnergy energy) {
+        return energy.fateCode;
     }
 
     public int getNumber(WuXing wuXing) {

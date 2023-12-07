@@ -8,6 +8,17 @@ import run.zhinan.zhouyi.common.WuXingEffect;
 
 public class CommonTest {
     @Test
+    public void testWuXing() {
+        Assert.assertEquals(WuXing.WOOD , WuXing.getByName("木"));
+        Assert.assertEquals(WuXing.FIRE , WuXing.getByName("火"));
+        Assert.assertEquals(WuXing.EARTH, WuXing.getByName("土"));
+        Assert.assertEquals(WuXing.METAL, WuXing.getByName("金"));
+        Assert.assertEquals(WuXing.WATER, WuXing.getByName("水"));
+        Assert.assertNull(WuXing.getByName("雷"));
+        Assert.assertNull(WuXing.getByName(null));
+    }
+
+    @Test
     public void testWuXingEffect() {
         Assert.assertEquals(WuXing.WATER, WuXingEffect.GIVE.of(WuXing.WOOD));
         Assert.assertEquals(WuXing.WOOD , WuXingEffect.HELP.of(WuXing.WOOD));

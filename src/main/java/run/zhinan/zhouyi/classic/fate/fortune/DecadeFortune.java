@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DecadeFortune extends Fortune {
+public class DecadeFortune extends BaseFortune implements PeriodFortune {
     FortuneDirection direction;
 
     public DecadeFortune(GanZhi ganZhi, FateCode fateCode, LocalDateTime startTime, LocalDateTime endTime) {
@@ -46,7 +46,7 @@ public class DecadeFortune extends Fortune {
     }
 
     @Override
-    protected Fortune getParent() {
+    public PeriodFortune getParent() {
         return null;
     }
 }

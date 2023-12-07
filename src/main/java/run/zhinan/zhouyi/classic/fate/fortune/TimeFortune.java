@@ -9,7 +9,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TimeFortune extends Fortune {
+public class TimeFortune extends BaseFortune implements PeriodFortune {
     public TimeFortune(GanZhi ganZhi, FateCode fateCode, LocalDateTime startTime, LocalDateTime endTime) {
         super(ganZhi, ColumnType.TIME_FORTUNE, fateCode, startTime, endTime);
     }
@@ -47,7 +47,7 @@ public class TimeFortune extends Fortune {
     }
 
     @Override
-    protected Fortune getParent() {
+    public DailyFortune getParent() {
         return DailyFortune.of(this.startTime.plusHours(1), getFateCode());
     }
 }

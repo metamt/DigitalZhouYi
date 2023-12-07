@@ -1,5 +1,6 @@
 package run.zhinan.zhouyi.classic.fate.fortune;
 
+import lombok.Getter;
 import run.zhinan.zhouyi.classic.common.GanZhi;
 import run.zhinan.zhouyi.classic.fate.ColumnType;
 import run.zhinan.zhouyi.classic.fate.FateCode;
@@ -7,11 +8,12 @@ import run.zhinan.zhouyi.classic.fate.FateCodeColumn;
 
 import java.time.LocalDateTime;
 
-public abstract class Fortune extends FateCodeColumn {
+@Getter
+public abstract class BaseFortune extends FateCodeColumn implements PeriodFortune {
     LocalDateTime startTime;
     LocalDateTime endTime;
 
-    public Fortune(GanZhi ganZhi, ColumnType type, FateCode fateCode, LocalDateTime startTime, LocalDateTime endTime) {
+    public BaseFortune(GanZhi ganZhi, ColumnType type, FateCode fateCode, LocalDateTime startTime, LocalDateTime endTime) {
         super(ganZhi, type, fateCode);
         this.startTime = startTime;
         this.endTime   = endTime;
@@ -23,7 +25,7 @@ public abstract class Fortune extends FateCodeColumn {
 
     public int getScore() {
         int score = getSelfScore();
-        Fortune parent = getParent();
+        PeriodFortune parent = getParent();
         int parentScore = parent == null ? score : parent.getScore();
         return new Double(parentScore * 0.4 + score * 0.6).intValue();
     }
@@ -40,7 +42,7 @@ public abstract class Fortune extends FateCodeColumn {
         return String.valueOf(startTime.getYear() - getFateCode().getBirthday().getYear());
     }
 
-    abstract protected Fortune getParent();
+    public abstract PeriodFortune getParent();
 
     @Override
     protected FateCode getFateCode() {

@@ -38,9 +38,9 @@ public class FatePattern {
      * 同党<=80为从弱
      * 异党<=40委从强
      */
-    public static FatePattern of(FateCode fateCode) {
+    public static FatePattern of(WuXingEnergy energy) {
         FatePattern pattern = new FatePattern();
-        WuXingEnergy energy = WuXingEnergy.of(fateCode);
+        FateCode fateCode = WuXingEnergy.getFateCode(energy);
         WuXing fateWuXing = fateCode.getFate().getWuXing();
         pattern.selfPart  = energy.getValue(fateWuXing.getByEffect(GIVE)) +
                             energy.getValue(fateWuXing.getByEffect(HELP)) ;

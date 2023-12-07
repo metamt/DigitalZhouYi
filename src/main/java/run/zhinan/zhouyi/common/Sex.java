@@ -21,6 +21,10 @@ public enum Sex {
         return YinYang.getByValue(value);
     }
 
+    public boolean isMale() {
+        return MALE.value == this.value;
+    }
+
     public static Sex getByValue(int value) {
         return values()[value];
     }

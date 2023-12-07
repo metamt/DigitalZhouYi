@@ -4,13 +4,17 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
+import run.zhinan.zhouyi.classic.fate.ColumnType;
 import run.zhinan.zhouyi.classic.fate.FateCode;
 import run.zhinan.zhouyi.classic.fate.FatePattern;
 import run.zhinan.zhouyi.classic.fate.energy.GodEnergy;
+import run.zhinan.zhouyi.classic.fate.energy.WuXingEnergy;
 import run.zhinan.zhouyi.classic.fate.fortune.*;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class FateTest {
@@ -26,7 +30,7 @@ public class FateTest {
 
     @Test
     public void testFatePattern() {
-        System.out.println(JSON.toJSONString(FatePattern.of(fateCode),
+        System.out.println(JSON.toJSONString(FatePattern.of(fateCode.getEnergy()),
                 SerializerFeature.PrettyFormat, SerializerFeature.SortField, SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteEnumUsingToString
         ));
     }
@@ -83,8 +87,29 @@ public class FateTest {
     }
 
     @Test
+    public void testPeriodFortune() {
+        List<String> nameList = new ArrayList<>();
+        PeriodFortune.getFortunes(dateTime, fateCode, ColumnType.TIME_FORTUNE).forEach(fortune -> nameList.add(fortune.toString()));
+        System.out.println(JSON.toJSONString(nameList,
+                SerializerFeature.PrettyFormat, SerializerFeature.SortField, SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteEnumUsingToString
+        ));
+        nameList.clear();
+        PeriodFortune.getFortunes(dateTime, fateCode, ColumnType.DAILY_FORTUNE).forEach(fortune -> nameList.add(fortune.toString()));
+        System.out.println(JSON.toJSONString(nameList,
+                SerializerFeature.PrettyFormat, SerializerFeature.SortField, SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteEnumUsingToString
+        ));
+    }
+
+    @Test
     public void testGodEnergy() {
         System.out.println(JSON.toJSONString(GodEnergy.of(fateCode),
+                SerializerFeature.PrettyFormat, SerializerFeature.SortField, SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteEnumUsingToString
+        ));
+    }
+
+    @Test
+    public void testWuXingEnergy() {
+        System.out.println(JSON.toJSONString(WuXingEnergy.of(fateCode, LocalDate.now()),
                 SerializerFeature.PrettyFormat, SerializerFeature.SortField, SerializerFeature.DisableCircularReferenceDetect, SerializerFeature.WriteEnumUsingToString
         ));
     }

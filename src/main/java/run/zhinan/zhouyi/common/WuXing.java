@@ -1,5 +1,7 @@
 package run.zhinan.zhouyi.common;
 
+import java.util.Arrays;
+
 public class WuXing implements Comparable<WuXing> {
     public final static WuXing WOOD  = new WuXing(0, "木");
     public final static WuXing FIRE  = new WuXing(1, "火");
@@ -27,6 +29,10 @@ public class WuXing implements Comparable<WuXing> {
 
     public static WuXing getByValue(int value) {
         return values()[value];
+    }
+
+    public static WuXing getByName(String name) {
+        return Arrays.stream(values()).filter(wuXing -> wuXing.name.equals(name)).findAny().orElse(null);
     }
 
     public WuXingEffect effect(WuXing other) {

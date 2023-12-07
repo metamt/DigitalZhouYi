@@ -38,7 +38,15 @@ public class FateCodeColumn extends GanZhi {
     protected FateCode getFateCode() { return fateCode; }
 
     protected FatePattern getPattern() {
-        if (pattern == null) pattern = FatePattern.of(getFateCode());
+        if (pattern == null) pattern = FatePattern.of(getFateCode().getEnergy());
         return pattern;
+    }
+
+    public FateCode fateCode() {
+        return getFateCode();
+    }
+
+    public FatePattern fatePattern() {
+        return getPattern();
     }
 }

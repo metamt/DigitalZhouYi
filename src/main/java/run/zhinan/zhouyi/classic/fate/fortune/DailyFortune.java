@@ -2,7 +2,6 @@ package run.zhinan.zhouyi.classic.fate.fortune;
 
 import run.zhinan.time.ganzhi.GanZhiDate;
 import run.zhinan.time.lunar.LunarDate;
-import run.zhinan.time.lunar.LunarDateTime;
 import run.zhinan.zhouyi.classic.common.GanZhi;
 import run.zhinan.zhouyi.classic.fate.ColumnType;
 import run.zhinan.zhouyi.classic.fate.FateCode;
@@ -12,7 +11,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DailyFortune extends Fortune {
+public class DailyFortune extends BaseFortune implements PeriodFortune {
     public DailyFortune(GanZhi ganZhi, FateCode fateCode, LocalDateTime startTime, LocalDateTime endTime) {
         super(ganZhi, ColumnType.DAILY_FORTUNE, fateCode, startTime, endTime);
     }
@@ -50,7 +49,7 @@ public class DailyFortune extends Fortune {
     }
 
     @Override
-    protected Fortune getParent() {
+    public PeriodFortune getParent() {
         return MonthFortune.of(startTime.plusDays(1), getFateCode());
     }
 }

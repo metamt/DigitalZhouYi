@@ -9,7 +9,13 @@ public class EnergyScoreXingHeDefinition implements EnergyScoreDefinition {
             40,  70, 20, 10,    // 年柱
             40, 105, 30, 15,    // 月柱
             40,  70, 20, 10,    // 日柱
-            40,  70, 20, 10     // 时柱
+            40,  70, 20, 10,    // 时柱
+
+            40,  70, 20, 10,    // 大运
+            40,  70, 20, 10,    // 年运
+            40,  70, 20, 10,    // 月运
+            40,  70, 20, 10,    // 日运
+            40,  70, 20, 10,    // 时运
     };
 
     public int getScore(ColumnType column, PositionType position) {

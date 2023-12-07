@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MonthFortune extends Fortune {
+public class MonthFortune extends BaseFortune implements PeriodFortune {
     public MonthFortune(GanZhi ganZhi, FateCode fateCode, LocalDateTime startTime, LocalDateTime endTime) {
         super(ganZhi, ColumnType.MONTH_FORTUNE, fateCode, startTime, endTime);
     }
@@ -48,7 +48,7 @@ public class MonthFortune extends Fortune {
     }
 
     @Override
-    protected Fortune getParent() {
+    public YearFortune getParent() {
         return YearFortune.of(endTime, getFateCode());
     }
 }
