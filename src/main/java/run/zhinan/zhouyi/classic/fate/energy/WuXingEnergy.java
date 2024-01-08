@@ -31,9 +31,13 @@ public class WuXingEnergy {
         if (date != null) {
             columnList.addAll(PeriodFortune.getFortunes(date.atTime(12, 0), fateCode, ColumnType.DAILY_FORTUNE));
         }
-
-        WuXingEnergy energy = new WuXingEnergy();
+        WuXingEnergy energy = of(columnList);
         energy.fateCode = fateCode;
+        return energy;
+    }
+
+    public static WuXingEnergy of(List<FateCodeColumn> columnList) {
+        WuXingEnergy energy = new WuXingEnergy();
         for (FateCodeColumn column : columnList) {
             energy.number.put(column.getGan().getWuXing().getValue(), energy.getNumber(column.getGan().getWuXing()) + 1);
             energy.number.put(column.getZhi().getWuXing().getValue(), energy.getNumber(column.getZhi().getWuXing()) + 1);
@@ -64,12 +68,12 @@ public class WuXingEnergy {
                 result = ganZhi.getZhi().getWuXing();
                 break;
             case HIDDEN_GAN_2:
-                result = ganZhi.getZhi().getSecondHiddenGan() == null ? ganZhi.getZhi().getWuXing() : ganZhi.getZhi().getSecondHiddenGan().getWuXing();
+                result = ganZhi.getZhi().secondHiddenGan() == null ? ganZhi.getZhi().getWuXing() : ganZhi.getZhi().secondHiddenGan().getWuXing();
                 break;
             case HIDDEN_GAN_3:
-                result = ganZhi.getZhi().getThirdHiddenGan() == null ?
-                        ganZhi.getZhi().getSecondHiddenGan() == null ? ganZhi.getZhi().getWuXing() : ganZhi.getZhi().getSecondHiddenGan().getWuXing() :
-                        ganZhi.getZhi().getThirdHiddenGan ().getWuXing();
+                result = ganZhi.getZhi().thirdHiddenGan() == null ?
+                        ganZhi.getZhi().secondHiddenGan() == null ? ganZhi.getZhi().getWuXing() : ganZhi.getZhi().secondHiddenGan().getWuXing() :
+                        ganZhi.getZhi().thirdHiddenGan().getWuXing();
         }
         return result;
     }

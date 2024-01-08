@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class DecadeFortune extends BaseFortune implements PeriodFortune {
-    FortuneDirection direction;
+    final FortuneDirection direction;
 
     public DecadeFortune(GanZhi ganZhi, FateCode fateCode, LocalDateTime startTime, LocalDateTime endTime) {
         super(ganZhi, ColumnType.DECADE_FORTUNE, fateCode, startTime, endTime);

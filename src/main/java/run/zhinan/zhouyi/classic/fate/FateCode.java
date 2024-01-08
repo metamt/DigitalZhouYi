@@ -25,7 +25,6 @@ public class FateCode {
     FateCodeColumn[] fourColumns = new FateCodeColumn[4];
 
     WuXingEnergy energy;
-    GodEnergy godEnergy;
 
     public static FateCode of(LocalDateTime birthday, int sex) {
         GanZhiDateTime ganZhiDateTime = GanZhiDateTime.of(birthday);
@@ -80,10 +79,5 @@ public class FateCode {
     public WuXingEnergy getEnergy() {
         if (energy == null) energy = WuXingEnergy.of(this);
         return energy;
-    }
-
-    public GodEnergy getGodEnergy() {
-        if (godEnergy == null) godEnergy = GodEnergy.of(this);
-        return godEnergy;
     }
 }

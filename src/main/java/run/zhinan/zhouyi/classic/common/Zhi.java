@@ -47,20 +47,24 @@ public class Zhi {
     }
 
     public Gan getGan() {
-        return getFirstHiddenGan();
+        return firstHiddenGan();
     }
 
-    public Gan getFirstHiddenGan() {
-        return hiddenGans[0];
+    public Gan firstHiddenGan() {
+        return getHiddenGans()[0];
     }
 
-    public Gan getSecondHiddenGan() {
-        return hiddenGans.length > 1 ? hiddenGans[1] : null;
+    public Gan secondHiddenGan() {
+        return getHiddenGans().length > 1 ? hiddenGans[1] : null;
     }
 
-    public Gan getThirdHiddenGan() {
-        return hiddenGans.length > 2 ? hiddenGans[2] : null;
+    public Gan thirdHiddenGan() {
+        return getHiddenGans().length > 2 ? hiddenGans[2] : null;
     }
+
+    public Gan[] hiddenGans() {return hiddenGans;}
+
+    Gan[] getHiddenGans() {return hiddenGans();}
 
     @Override
     public String toString() {

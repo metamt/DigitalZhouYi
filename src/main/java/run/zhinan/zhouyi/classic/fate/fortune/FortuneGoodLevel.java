@@ -19,7 +19,7 @@ public enum FortuneGoodLevel {
     public static FortuneGoodLevel getByScore(int score) {
         FortuneGoodLevel result = FortuneGoodLevel.BAD;
         for (FortuneGoodLevel goodLevel : values()) {
-            if (score > goodLevel.score) {
+            if (score >= goodLevel.score) {
                 result = goodLevel;
                 break;
             }

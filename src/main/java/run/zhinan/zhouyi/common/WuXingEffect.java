@@ -25,10 +25,10 @@ public enum WuXingEffect {
                 return COST;
             case 3:
                 return CURB;
+            default:
             case 4:
                 return GIVE;
         }
-        return null;
     }
 
     public WuXing of(WuXing wuXing) {

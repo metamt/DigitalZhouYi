@@ -1,6 +1,7 @@
 package run.zhinan.zhouyi.classic.common;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import run.zhinan.zhouyi.classic.fate.FateSound;
 

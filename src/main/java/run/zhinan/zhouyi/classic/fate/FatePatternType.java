@@ -7,7 +7,6 @@ import run.zhinan.zhouyi.common.WuXingEffect;
 import static run.zhinan.zhouyi.classic.fate.PatternType.ADJUST;
 import static run.zhinan.zhouyi.classic.fate.PatternType.FOLLOW;
 import static run.zhinan.zhouyi.common.WuXingEffect.*;
-import static run.zhinan.zhouyi.common.WuXingEffect.LEAK;
 
 @Getter
 @AllArgsConstructor

@@ -9,7 +9,8 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static run.zhinan.zhouyi.classic.fate.PatternType.*;
+import static run.zhinan.zhouyi.classic.fate.PatternType.ADJUST;
+import static run.zhinan.zhouyi.classic.fate.PatternType.FOLLOW;
 import static run.zhinan.zhouyi.common.WuXingEffect.*;
 
 @Getter

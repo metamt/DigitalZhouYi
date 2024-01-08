@@ -10,7 +10,6 @@ import run.zhinan.time.solar.SolarTerm;
 import java.time.Duration;
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Objects;
 
 public class TabooDay {
     public static boolean isBadDay(LocalDate date) {

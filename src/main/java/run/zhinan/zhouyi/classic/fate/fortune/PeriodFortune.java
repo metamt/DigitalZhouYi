@@ -3,6 +3,7 @@ package run.zhinan.zhouyi.classic.fate.fortune;
 import run.zhinan.zhouyi.classic.fate.ColumnType;
 import run.zhinan.zhouyi.classic.fate.FateCode;
 
+import java.time.Duration;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,5 +48,13 @@ public interface PeriodFortune {
                 fortune = TimeFortune.of(dateTime, fateCode);
         }
         return fortune;
+    }
+
+    static FateCode getFateCode(BaseFortune fortune) {
+        return fortune.getFateCode();
+    }
+
+    static LocalDateTime getDateTime(PeriodFortune fortune) {
+        return fortune.getStartTime().plusSeconds(Duration.between(fortune.getStartTime(), fortune.getEndTime()).getSeconds() / 2);
     }
 }

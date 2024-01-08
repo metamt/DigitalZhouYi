@@ -19,6 +19,10 @@ public enum YinYang {
 
     public boolean isYang() { return getValue() == YANG.getValue(); }
 
+    public YinYang reverse() {
+        return isYang() ? YIN : YANG;
+    }
+
     public static YinYang getByValue(int value) {
         return values()[value];
     }

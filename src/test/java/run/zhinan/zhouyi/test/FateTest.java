@@ -14,7 +14,6 @@ import run.zhinan.zhouyi.classic.fate.fortune.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class FateTest {

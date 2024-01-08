@@ -5,11 +5,10 @@ import run.zhinan.zhouyi.classic.fate.ColumnType;
 import run.zhinan.zhouyi.classic.fate.FateCode;
 import run.zhinan.zhouyi.classic.fate.FateCodeColumn;
 import run.zhinan.zhouyi.classic.fate.FateGod;
-import run.zhinan.zhouyi.classic.fate.fortune.PeriodFortune;
 
 public class GodEnergy {
-    int[] ganValues = new int[10];
-    int[] zhiValues = new int[10];
+    final int[] ganValues = new int[10];
+    final int[] zhiValues = new int[10];
 
     public static GodEnergy of(FateCode fateCode) {
         return of(fateCode.getFourColumns(), fateCode.getFate(), true);
@@ -26,7 +25,7 @@ public class GodEnergy {
             if (ganZhi != null) {
                 if (i != 2)
                     godEnergy.ganValues[fate.effect(ganZhi.getGan()).getValue()] += 40;
-                Gan[] hiddenGans = ganZhi.getZhi().getHiddenGans();
+                Gan[] hiddenGans = ganZhi.getZhi().hiddenGans();
                 godEnergy.zhiValues[fate.effect(hiddenGans[0]).getValue()] += (hiddenGans.length > 1 ? 70 : 100) * getColumnWeight(i, origin);
                 if (hiddenGans.length > 1)
                     godEnergy.zhiValues[fate.effect(hiddenGans[1]).getValue()] += (hiddenGans.length > 2 ? 20 : 30) * getColumnWeight(i, origin);
