@@ -46,6 +46,10 @@ public class Zhi {
         return result;
     }
 
+    public String getFullName() {
+        return getName() + getWuXing().getName();
+    }
+
     public Gan getGan() {
         return firstHiddenGan();
     }

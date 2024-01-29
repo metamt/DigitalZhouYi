@@ -3,6 +3,7 @@ package run.zhinan.zhouyi.test;
 import com.alibaba.fastjson.JSON;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
+import run.zhinan.zhouyi.classic.divine.liuyao.LiuYaoDescriber;
 import run.zhinan.zhouyi.classic.divine.liuyao.LiuYaoDivine;
 import run.zhinan.zhouyi.classic.divine.liuyao.LiuYaoDivineStatus;
 import run.zhinan.zhouyi.classic.divine.liuyao.QuestionType;
@@ -13,10 +14,10 @@ import java.time.LocalDateTime;
 
 public class DivineTest {
     String question = "这次考试能过吗？";
-    LocalDateTime divineTime = LocalDateTime.of(2023, 12, 28, 14, 15);
-    int[] data = new int[] {7, 6, 9, 8, 6, 9};
+    LocalDateTime divineTime = LocalDateTime.of(2023, 8, 28, 14, 15);
+    int[] data = new int[] {9, 7, 9, 8, 6, 9};
     MeiHuaDivine meihua = MeiHuaDivine.init(question, divineTime, 56, 73, 2);
-    LiuYaoDivine liuyao = LiuYaoDivine.of(question, QuestionType.Love, divineTime, 1, data);
+//    LiuYaoDivine liuyao = LiuYaoDivine.of(question, QuestionType.Love, divineTime, 1, data);
 
     @Test
     public void testMeiHuaDivine() {
@@ -35,7 +36,16 @@ public class DivineTest {
     }
 
     @Test
+    public void testLiuYaoDescriber() {
+        int[] data = new int[] {8, 8, 9, 7, 6, 8};
+        LiuYaoDivine liuyao = LiuYaoDivine.of("小胖有多想我", QuestionType.Love, LocalDateTime.now(), 0, data);
+        System.out.println(LiuYaoDescriber.describe(LiuYaoDivineStatus.of(liuyao)));
+    }
+
+    @Test
     public void testLiuYaoDivine() {
+        int[] data = new int[] {7, 6, 9, 8, 6, 9};
+        LiuYaoDivine liuyao = LiuYaoDivine.of(question, QuestionType.Love, divineTime, 1, data);
 //        System.out.println(JSON.toJSONString(liuyao, true));
         Assert.assertEquals(liuyao.getOrigin().getHexagram().getName(), "山火贲");
         Assert.assertEquals(liuyao.getResult().getHexagram().getName(), "水泽节");
@@ -60,6 +70,8 @@ public class DivineTest {
 
     @Test
     public void testLiuYaoDivineStatus() {
-        System.out.println(JSON.toJSONString(LiuYaoDivineStatus.of(liuyao), true));
+        System.out.println(JSON.toJSONString(LiuYaoDivineStatus.of(
+                LiuYaoDivine.of(question, QuestionType.Love, divineTime, 1, data)
+        ), true));
     }
 }

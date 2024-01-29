@@ -65,7 +65,7 @@ public class LiuYaoHexagram {
                     Gan gan = gans[i / 3][gua.getInitValue() - 1];
                     YinYang  yinYang   = YinYang.getByValue(data[i] % 2);
                     Relation relation  = Relation.getByValue(WuXingEffect.of(liuyao.getWuXing(), zhi.getWuXing()).getValue());
-                    Position position = Position.getByValue(i);
+                    Position position = Position.HIDDEN;
                     HexagramYao fly = liuyao.yaos.get(i);
                     HexagramYao yao = new HexagramYao(gan, zhi, yinYang, wuXing, relation, position);
                     fly.fly = true;
@@ -84,8 +84,8 @@ public class LiuYaoHexagram {
         return sb.toString();
     }
 
-    public boolean isHarmony() {
-        return harmonyHexagrams.contains(hexagram);
+    public boolean isHarmony () {
+        return harmonyHexagrams .contains(hexagram);
     }
 
     public boolean isConflict() {
@@ -94,6 +94,14 @@ public class LiuYaoHexagram {
 
     public HexagramYao getYao(int i) {
         return yaos.get(i);
+    }
+
+    public HexagramYao getSelfYao() {
+        return getYao(self.getValue());
+    }
+
+    public HexagramYao getYingYao() {
+        return getYao(ying.getValue());
     }
 
     public final static List<CompositeHexagram> harmonyHexagrams  = Arrays.asList(
