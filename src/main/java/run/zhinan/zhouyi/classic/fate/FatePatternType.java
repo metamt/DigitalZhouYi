@@ -20,7 +20,7 @@ public class FatePatternType {
     WuXingEffect[] goodEffects;
     WuXingEffect[]  badEffects;
 
-    private final static FatePatternType[] fatePatternTypes = {
+    public final static FatePatternType[] fatePatternTypes = {
             new FatePatternType( 0, "印枭主导的偏旺格", GIVE, ADJUST, new WuXingEffect[] {COST, LEAK, CURB}, new WuXingEffect[] {GIVE, HELP}),
             new FatePatternType( 1, "截比主导的偏旺格", HELP, ADJUST, new WuXingEffect[] {LEAK, COST, CURB}, new WuXingEffect[] {HELP, GIVE}),
             new FatePatternType( 2, "食伤主导的偏弱格", LEAK, ADJUST, new WuXingEffect[] {GIVE, HELP}, new WuXingEffect[] {LEAK, CURB, COST}),
@@ -35,6 +35,6 @@ public class FatePatternType {
     };
 
     public static FatePatternType of(WuXingEffect master, PatternType patternType) {
-        return fatePatternTypes[patternType.getValue() * 10 + master.getValue()];
+        return fatePatternTypes[patternType.getValue() * 5 + master.getValue()];
     }
 }

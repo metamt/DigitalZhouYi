@@ -4,12 +4,12 @@ import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.serializer.SerializerFeature;
 import org.junit.jupiter.api.Test;
 import org.testng.Assert;
-import run.zhinan.zhouyi.classic.fate.ColumnType;
-import run.zhinan.zhouyi.classic.fate.FateCode;
-import run.zhinan.zhouyi.classic.fate.FatePattern;
+import run.zhinan.zhouyi.classic.fate.*;
+import run.zhinan.zhouyi.classic.fate.energy.EnergyType;
 import run.zhinan.zhouyi.classic.fate.energy.GodEnergy;
 import run.zhinan.zhouyi.classic.fate.energy.WuXingEnergy;
 import run.zhinan.zhouyi.classic.fate.fortune.*;
+import run.zhinan.zhouyi.common.WuXingEffect;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -19,6 +19,29 @@ import java.util.List;
 public class FateTest {
     private final static FateCode fateCode = FateCode.of(LocalDateTime.of(1976, 2, 11, 11, 40), 1);
     private final static LocalDateTime dateTime = LocalDateTime.of(2023, 11, 22, 15, 30);
+
+    @Test
+    public void testEnergyType() {
+        Assert.assertEquals(EnergyType.TOO_STRONG, EnergyType.of(true , true ));
+        Assert.assertEquals(EnergyType.STRONG    , EnergyType.of(true , false));
+        Assert.assertEquals(EnergyType.WEAK      , EnergyType.of(false, false));
+        Assert.assertEquals(EnergyType.TOO_WEAK  , EnergyType.of(false, true ));
+    }
+
+    @Test
+    public void testPatternType() {
+        Assert.assertEquals(FatePatternType.fatePatternTypes[0], FatePatternType.of(WuXingEffect.GIVE , PatternType.ADJUST));
+        Assert.assertEquals(FatePatternType.fatePatternTypes[1], FatePatternType.of(WuXingEffect.HELP , PatternType.ADJUST));
+        Assert.assertEquals(FatePatternType.fatePatternTypes[2], FatePatternType.of(WuXingEffect.LEAK , PatternType.ADJUST));
+        Assert.assertEquals(FatePatternType.fatePatternTypes[3], FatePatternType.of(WuXingEffect.COST , PatternType.ADJUST));
+        Assert.assertEquals(FatePatternType.fatePatternTypes[4], FatePatternType.of(WuXingEffect.CURB , PatternType.ADJUST));
+
+        Assert.assertEquals(FatePatternType.fatePatternTypes[5], FatePatternType.of(WuXingEffect.GIVE , PatternType.FOLLOW));
+        Assert.assertEquals(FatePatternType.fatePatternTypes[6], FatePatternType.of(WuXingEffect.HELP , PatternType.FOLLOW));
+        Assert.assertEquals(FatePatternType.fatePatternTypes[7], FatePatternType.of(WuXingEffect.LEAK , PatternType.FOLLOW));
+        Assert.assertEquals(FatePatternType.fatePatternTypes[8], FatePatternType.of(WuXingEffect.COST , PatternType.FOLLOW));
+        Assert.assertEquals(FatePatternType.fatePatternTypes[9], FatePatternType.of(WuXingEffect.CURB , PatternType.FOLLOW));
+    }
 
     @Test
     public void testFateCode() {
